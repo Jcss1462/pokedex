@@ -8,16 +8,19 @@ import { PokemonList } from '../components/pokemonList/pokemonList.jsx';
 import { getPokemon } from '../api/index.js';
 
 //rdux import
-import { connect } from 'react-redux';
-import { setPokemons as  setPokemonsActions} from '../actions/index.js';
+import {setPokemons} from '../actions/index.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-function App({pokemons,setPokemons}) {
+function App() {
+
+  const pokemons = useSelector(state =>state.pokemons);
+  const dispatch = useDispatch();
   
   useEffect(() => {
     const fetchPokemons = async () => {
       const pokemonsRes=await getPokemon();
-      setPokemons(pokemonsRes);
+      dispatch(setPokemons(pokemonsRes));
     }
 
     fetchPokemons();
@@ -37,16 +40,4 @@ function App({pokemons,setPokemons}) {
   );
 }
 
-//recibe el estado y retorna un objet cuyas propiedades seran enviadas al componente que se conecta a redux
-const mapStateToProps=(state)=>({
-  pokemons: state.pokemons
-});
-
-
-//recibe un dispatcher y retorna un objeto con los actions creators establecidos previamente
-const mapDispatchToProps=(dispatch)=>({
-  setPokemons: (value) => dispatch(setPokemonsActions(value))
-});
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default App;

@@ -5,7 +5,7 @@ import { Col } from 'antd'
 import { useEffect} from 'react';
 import { Searcher } from '../components/searcher/searcher.jsx';
 import { PokemonList } from '../components/pokemonList/pokemonList.jsx';
-import { getPokemon } from '../api/index.js';
+import { getPokemon, getPokemonDetails } from '../api/index.js';
 
 //rdux import
 import {setPokemons} from '../actions/index.js';
@@ -20,7 +20,10 @@ function App() {
   useEffect(() => {
     const fetchPokemons = async () => {
       const pokemonsRes=await getPokemon();
-      dispatch(setPokemons(pokemonsRes));
+
+      //Promise.all llanza un conjunto de peticiones al mismo tiempo y se resolvera cuando todas esten resueltas
+      const pokemonDetailed= await Promise.all(pokemonsRes.map(pokemon => getPokemonDetails(pokemon)));
+      dispatch(setPokemons(pokemonDetailed));
     }
 
     fetchPokemons();

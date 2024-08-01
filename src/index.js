@@ -7,12 +7,12 @@ import App from './App/App.js';
 import { pokemonsReducer } from './reducers/pokemons.js';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux';
-import { featuring, logger } from './middlewares/index.js';
+import { logger } from './middlewares/index.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const composeEnhacers=compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-                              applyMiddleware(logger,featuring));
+                              applyMiddleware(logger));
 
 const store = createStore(pokemonsReducer,composeEnhacers);
 

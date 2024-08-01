@@ -6,12 +6,15 @@ import App from './App/App.js';
 //redux
 import { pokemonsReducer } from './reducers/pokemons.js';
 import { Provider } from 'react-redux';
-import { legacy_createStore as createStore } from 'redux';
+import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux';
+import { featuring, logger } from './middlewares/index.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const store = createStore(pokemonsReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhacers=compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+                              applyMiddleware(logger,featuring));
+
+const store = createStore(pokemonsReducer,composeEnhacers);
 
 root.render(
   <React.StrictMode>

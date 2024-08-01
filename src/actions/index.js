@@ -1,4 +1,4 @@
-import { SET_LOADING, SET_POKEMONS } from "./type";
+import { SET_FAVORITE, SET_LOADING, SET_POKEMONS } from "./type";
 import { getPokemonDetails } from "../api";
 
 export const setPokemons = (payload)=>({
@@ -10,6 +10,12 @@ export const setLoading = (payload)=>({
     type: SET_LOADING,
     payload
 });
+
+export const setFavorite = (payload)=>({
+    type: SET_FAVORITE,
+    payload
+});
+
 
 export const getPokemonsWithDetails = (pokemons=[]) => async (dispatch)=>{
     //Promise.all llanza un conjunto de peticiones al mismo tiempo y se resolvera cuando todas esten resueltas

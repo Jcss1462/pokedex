@@ -4,7 +4,7 @@ import { StartButton } from '../startButton/startButton';
 
 //redux
 import { useDispatch } from 'react-redux';
-import { setFavorite } from '../../actions';
+import {setFavorite}  from '../../slices/dataSlice.js';
 
 const PokemonCard=({name,image, types, id, favorite})=>{
 

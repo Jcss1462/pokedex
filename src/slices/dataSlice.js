@@ -3,7 +3,8 @@ import { getPokemon, getPokemonDetails } from "../api";
 import { setLoading } from "./uiSlice";
 
 const initialState={
-    pokemons: []
+    pokemons: [],
+    searchFilter:""
 }
 
 export const fetchPokemonWithDetails= createAsyncThunk(
@@ -34,10 +35,13 @@ export const dataSliece = createSlice({
                 const isFavorite = state.pokemons[currentPokeemonIndex].favorite;
                 state.pokemons[currentPokeemonIndex].favorite=!isFavorite;
             }
-        }
+        },
+        setSearchFilter: (state, action)=>{
+            state.searchFilter=action.payload
+        },
     }
 });
 
-export const {setPokemons,setFavorite}=dataSliece.actions;
+export const {setPokemons,setFavorite,setSearchFilter}=dataSliece.actions;
 
 export default dataSliece.reducer;

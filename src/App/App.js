@@ -8,14 +8,14 @@ import { PokemonList } from '../components/pokemonList/pokemonList.jsx';
 import { getPokemon } from '../api/index.js';
 
 //rdux import
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getPokemonsWithDetails, setLoading } from '../actions/index.js'
 
 
 function App() {
 
-  const pokemons = useSelector(state => state.get("pokemons")).toJS();
-  const loading = useSelector(state => state.get("loading"));
+  const pokemons = useSelector(state => state.getIn(["data","pokemons"]),shallowEqual).toJS();
+  const loading = useSelector(state => state.getIn(["ui", "loading"]));
   const dispatch = useDispatch();
 
   useEffect(() => {
